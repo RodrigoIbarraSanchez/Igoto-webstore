@@ -1,0 +1,335 @@
+<div class="header-bot">
+	<div class="header-bot_inner_wthreeinfo_header_mid">
+		<div class="col-md-4 header-middle">
+			
+		</div>
+		<!-- header-bot -->
+			<div class="col-md-4 logo_agile">
+				<a href="https://igoto.com.mx">
+					<img src="img/theme-1/logocopia.png" alt="">
+				</a><br><br>
+				<h2>Detalle de Producto</h2>
+			</div>
+        <!-- header-bot -->
+		<div class="col-md-4 agileits-social top_content">
+
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<div class="ban-top">
+	<div class="container">
+		<div class="">
+			<nav class="navbar navbar-default" style="width: 100%">
+			  <div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click="isNavCollapsed = !isNavCollapsed">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				</div>
+				<div class="collapse navbar-collapse menu--shylock" uib-collapse="isNavCollapsed">
+				  <ul class="nav navbar-nav menu__list navbar-left" >
+					<a href="https://goniapp.com/catalogo.html#!/" class="menu__link" style="color:white!important;">Catálogo <span class="sr-only">(current)</span></a>
+				  </ul>
+				  <ul class="nav navbar-nav menu__list navbar-right" >
+					<a ng-if="user == undefined" ng-click="openLoginModal()" class="menu__link" style="color:white!important;">Iniciar sesión <span class="sr-only">(current)</span></a>
+					<a ng-if="user == undefined" ng-click="openRegistroModal()" class="menu__link" style="color:white!important;">Regístrarse <span class="sr-only">(current)</span></a>
+					<a ng-if="user != undefined" class="menu__link" style="color:white!important;">{{user.email}} <span class="sr-only">(current)</span></a>
+					<a ng-click="logout()" ng-if="user != undefined" class="menu__link" style="color:white!important;">Cerrar sesíón <span class="sr-only">(current)</span></a>
+				  </ul>
+				</div>
+				<!--div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1" style="visibility: hidden" uib-collapse="isNavCollapsed">
+				  <ul class="nav navbar-nav menu__list">
+					<li ng-repeat="category in categories" ng-model="category._id" ng-class="{'resp-tab-active': tab === $index}" ng-click="selectCategory(category._id,$index)" >
+						{{category.categoria}}
+					</li>
+				  </ul>
+				</div-->
+			  </div>
+			</nav>	
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<!-- banner-bootom-w3-agileits -->
+<div class="banner-bootom-w3-agileits" style="margin-top: 75px">
+	<div class="container">
+		<div class="col-md-4 single-right-left ">
+			<div class="grid images_3_of_2">
+				<div class="flexslider">
+
+					<div class="thumb-image"> 
+						<img src="{{producto.imagenes[0]}}" class="img-responsive zoom"> 
+					</div>
+					<ul class="slides">
+						<li data-thumb="../images/d2.jpg">
+							<div class="thumb-image"> <img src="{{producto.imagenes[1]}}" data-imagezoom="true" class="img-responsive"> </div>
+						</li>
+						<li data-thumb="images/d1.jpg">
+							<div class="thumb-image"> <img src="{{producto.imagenes[2]}}" data-imagezoom="true" class="img-responsive"> </div>
+						</li>	
+						<li data-thumb="images/d3.jpg">
+							<div class="thumb-image"> <img src="{{producto.imagenes[3]}}" data-imagezoom="true" class="img-responsive"> </div>
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>	
+			</div>
+		</div>
+		<div class="col-md-8 single-right-left simpleCart_shelfItem">
+			<h3>{{producto.nombre}}</h3>
+			<p><span class="item_price">{{producto.precio | currency}}</span></p>
+			<!-- <div class="rating1">
+				<span class="starRating">
+					<input id="rating5" type="radio" name="rating" value="5">
+					<label for="rating5">5</label>
+					<input id="rating4" type="radio" name="rating" value="4">
+					<label for="rating4">4</label>
+					<input id="rating3" type="radio" name="rating" value="3" checked="">
+					<label for="rating3">3</label>
+					<input id="rating2" type="radio" name="rating" value="2">
+					<label for="rating2">2</label>
+					<input id="rating1" type="radio" name="rating" value="1">
+					<label for="rating1">1</label>
+				</span>
+			</div> -->
+			<div class="description">
+			</div>
+			<div class="color-quality">
+				<div class="color-quality-right">
+					<h5>No. de piezas disponibles : {{producto.piezasDisponibles}}</h5>
+					<!--select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
+						<option value="null">1</option>
+						<option value="null">2</option> 
+						<option value="null">3</option>					
+						<option value="null">4</option>								
+					</select-->
+					<select ng-model="selectPiezas.noPiezas"
+					    	ng-change="notificacionPiezas($event)"
+					    	ng-options="p as p for p in producto.piezasDisponibles | rango" ng-if="producto.piezasDisponibles > 0"></select>
+				</div>
+			</div>
+			<div class="row">				
+				<!--caracteristicas dinamicas-->								
+				<div class="wrap-caracteristicas" style="padding: 15px">
+					<div class="caracteristica" ng-repeat="caracteristica in producto.caracteristicas">
+						<h4>{{caracteristica.nombre}}</h4>
+						<ul>
+							<li ng-repeat="valor in caracteristica.valores" style="list-style: none;">
+								<!--ng-value="{{valor}}" -->
+								<input id="{{valor}}" type="radio" 
+								name="{{caracteristica.nombre}}" 
+								ng-click="addCaracteristica(caracteristica.nombre, valor)">
+								{{valor}}							
+							</li>
+						</ul>
+						<div class="separador"></div>
+					</div>					
+				</div>
+			</div>
+			<div class="occasion-cart">
+				<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+					<input type="button" value="Agregar al carrito" class="button" ng-click="irComprar()">
+				</div>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header bgdHeaderMdl" style="background-color: #d22f00;">
+			        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;color: white;">VENTA EXCLUSIVA EN LA APLICACIÓN</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+		      	<div class="modal-body" style="padding: 0!important;">
+			        <div class="col-md-6 col-xs-6" style="padding:14px">
+			        	<img class="iphoneModal" style="width: 325px;" src="https://igotoapp.com/img/content/Home-1/iphone2.png" alt="">
+			        </div>
+			        <div class="col-md-6 col-xs-6">
+			        	<a href="#" target="_blanck"><img style="width: 250px;margin-top: 70px;" class="gpmodal" src="https://igotoapp.com/img/gp.png" alt=""></a><br>
+			        	<img style="width: 220px;height: 75px;margin-left: 16px; cursor: not-allowed;opacity: 0.3;" src="https://igotoapp.com/img/as.png" class="asmodal" alt=""><br>
+			        	<a href="tel:016644162347"><img class="callModal" style="width: 220px;margin-left: 15px;margin-top: 13px;" src="https://aampower.com.mx/wp-content/uploads/2018/01/Llámanos.png" alt=""></a>
+			        </div>
+				</div>
+	      		<div class="modal-footer">
+			        
+		      	</div>
+			  </div>
+			</div>
+		</div>
+		<div class="clearfix"> </div>
+		<!-- /new_arrivals --> 
+		<div class="responsive_tabs_agileits"> 
+			<div id="horizontalTab">
+				<ul class="resp-tabs-list">
+					<li>Descripción</li>
+				</ul>
+				<div class="resp-tabs-container">
+					<!--/tab_one-->
+					<div class="tab1">
+
+						<div class="single_page_agile_its_w3ls">
+							<h6>{{producto.nombre}}</h6>
+							<p>
+								{{producto.descripcion}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>			
+	</div>
+</div>
+<!--grids-->
+<!-- footer -->
+<div class="footer">
+	<div class="footer_agile_inner_info_w3l">
+
+		<div class="col-md-12 footer-right">
+			<div class="sign-grds">
+				<div class="col-md-3"></div>
+				<div class="col-md-6 sign-gd-two text-center">
+					<h4><span>Información de la</span>Tienda</h4>
+					<div class="w3-address">
+						<div class="row">
+							<div class="w3-address-grid col-md-6">
+								<div class="w3-address-left">
+									<i class="fa fa-phone" aria-hidden="true"></i>
+								</div>
+								<div class="w3-address-right">
+									<h6>Número de teléfono</h6>
+									<p>01 222 682 10 41</p>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<div class="w3-address-grid col-md-6">
+								<div class="w3-address-left">
+									<i class="fa fa-envelope" aria-hidden="true"></i>
+								</div>
+								<div class="w3-address-right">
+									<h6>Email</h6>
+									<p>Email: <a href="mailto:ventas@ecomaq.mx">ventas@ecomaq.mx</a></p>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<!--
+							<div class="w3-address-grid col-md-4">
+								<div class="w3-address-left">
+									<i class="fa fa-map-marker" aria-hidden="true"></i>
+								</div>
+								<div class="w3-address-right">
+									<h6>Dirección</h6>
+									<p>Broome St, NY 10002,California, USA. 
+
+									</p>
+								</div>
+
+								<div class="clearfix"> 
+								</div>
+							</div>
+						-->
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<p class="copy-right">&copy ECOMAQ MÉXICO S.A. de C.V. Todos los derechos reservados</p>
+	</div>
+</div>
+<!-- //footer -->
+<!-- //login -->
+<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!-- //js -->
+<script src="js/modernizr.custom.js"></script>
+<!-- Custom-JavaScript-File-Links --> 
+<!-- cart-js -->
+<script src="js/minicart.min.js"></script>
+<script>
+// Mini Cart
+paypal.minicart.render({
+	action: '#'
+});
+
+if (~window.location.search.indexOf('reset=true')) {
+	paypal.minicart.reset();
+}
+</script>
+
+<!-- //cart-js --> 
+<!-- single -->
+<script src="js/imagezoom.js"></script>
+<!-- single -->
+<!-- script for responsive tabs -->						
+<script src="js/easy-responsive-tabs.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#horizontalTab').easyResponsiveTabs({
+type: 'default', //Types: default, vertical, accordion           
+width: 'auto', //auto or any width like 600px
+fit: true,   // 100% fit in a container
+closed: 'accordion', // Start closed if in accordion view
+activate: function(event) { // Callback function if tab is switched
+	var $tab = $(this);
+	var $info = $('#tabInfo');
+	var $name = $('span', $info);
+	$name.text($tab.text());
+	$info.show();
+}
+});
+		$('#verticalTab').easyResponsiveTabs({
+			type: 'vertical',
+			width: 'auto',
+			fit: true
+		});
+	});
+</script>
+<!-- FlexSlider -->
+<script src="js/jquery.flexslider.js"></script>
+<script>
+// Can also be used with $(document).ready()
+$(window).load(function() {
+	$('.flexslider').flexslider({
+		animation: "slide",
+		controlNav: "thumbnails"
+	});
+});
+</script>
+<!-- //FlexSlider-->
+<!-- //script for responsive tabs -->		
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript">
+	$(document).ready(function() {
+/*
+var defaults = {
+containerID: 'toTop', // fading element id
+containerHoverID: 'toTopHover', // fading element hover id
+scrollSpeed: 1200,
+easingType: 'linear' 
+};
+*/
+
+$().UItoTop({ easingType: 'easeOutQuart' });
+
+});
+</script>
+<!-- //here ends scrolling icon -->

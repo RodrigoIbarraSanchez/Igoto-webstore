@@ -1,0 +1,14 @@
+{
+  "name": "conekta",
+  "_cacheHeaders": {
+    "ETag": "\"7b02c78a60628f7c47955f1e0d57a914\"",
+    "Last-Modified": "Sat, 09 Apr 2016 17:01:34 GMT",
+    "Content-Length": "58510",
+    "Content-Type": "application/x-javascript"
+  },
+  "_release": "e-tag:7b02c78a6",
+  "main": "index.js",
+  "_source": "https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js",
+  "_target": "*",
+  "_originalSource": "https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"
+}

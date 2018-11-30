@@ -1,0 +1,197 @@
+<!-- header-bot -->
+
+<div class="header-bot">
+	<div class="header-bot_inner_wthreeinfo_header_mid">
+		<div class="col-md-4 header-middle">
+			
+		</div>
+		<!-- header-bot -->
+			<div class="col-md-4 logo_agile">
+				<a href="https://goniapp.com">
+					<img src="img/theme-1/logo.png" alt="">
+				</a>
+			</div>
+        <!-- header-bot -->
+		<div class="col-md-4 agileits-social top_content">
+
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<!-- //header-bot -->
+<!-- banner -->
+<div ng-include="'menu.html'" scope="" onload=""></div>
+<div class="ban-top">
+	<div class="container">
+		<div class="">
+			<nav class="navbar navbar-default" style="width: 100%">
+			  <div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click="isNavCollapsed = !isNavCollapsed">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				</div>
+				<div class="collapse navbar-collapse menu--shylock" uib-collapse="isNavCollapsed">
+				  <ul class="nav navbar-nav menu__list navbar-left" >
+					<a href="https://goniapp.com/" class="menu__link" style="color:white!important;">Home <span class="sr-only">(current)</span></a>
+				  </ul>
+				  <ul class="nav navbar-nav menu__list navbar-right" >
+					<a ng-if="user == undefined" ng-click="openLoginModal()" class="menu__link" style="color:white!important;">Iniciar sesión <span class="sr-only">(current)</span></a>
+					<a ng-if="user == undefined" ng-click="openRegistroModal()" class="menu__link" style="color:white!important;">Regístrarse <span class="sr-only">(current)</span></a>
+					<a ng-if="user != undefined" class="menu__link" style="color:white!important;">{{user.email}} <span class="sr-only">(current)</span></a>
+					<a ng-click="logout()" ng-if="user != undefined" class="menu__link" style="color:white!important;">Cerrar sesíón <span class="sr-only">(current)</span></a>
+				  </ul>
+				</div>
+				<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1" style="visibility: hidden" uib-collapse="isNavCollapsed">
+				  <ul class="nav navbar-nav menu__list">
+					<li ng-repeat="category in categories" ng-model="category._id" ng-class="{'resp-tab-active': tab === $index}" ng-click="selectCategory(category._id,$index)" >
+						{{category.categoria}}
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</nav>	
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<!-- //banner-top -->
+<!-- /Nuevo_arrivals --> 
+	<!--div class="Nuevo_arrivals_agile_w3ls_info"--> 
+		<div class="container-fluid">
+			<h3 class="wthree_text_info"><span>Catálogo 2018</span></h3>
+			<div class="row" style="margin: auto;width: 90%;margin-top: 5%">
+				<div class="col-md-2 col-sm-3 col-xs-12" style="padding-top: 32px">
+					<div id="sidebar" class="sidebar-menu" style="width: 90%">
+			            <ul class="nav flex-column flex-nowrap">
+			                <li class="nav-item" ng-repeat="catFather in categories track by $index">
+			                	<a class="nav-link" ng-click="getProductsByCategory(catFather.id_categoria_padre)" ng-if="catFather.categorias_hijo.length == 0" style="cursor: pointer;">{{catFather.categoria_padre}}</a>
+			                    <a class="nav-link collapsed" href="#{{catFather.id_categoria_padre}}" data-toggle="collapse" data-target="#{{catFather.id_categoria_padre}}" ng-if="catFather.categorias_hijo.length > 0">{{catFather.categoria_padre}}</a>
+
+			                    <div class="collapse" id="{{catFather.id_categoria_padre}}" aria-expanded="false">
+			                        <ul class="flex-column pl-2 nav">
+			                            <li class="nav-item" ng-repeat="catSon in catFather.categorias_hijo track by $index" style="padding-left: 12px">
+			                            	<a class="nav-link py-0" ng-click="getProductsByCategory(catSon.id_categoria_hijo)" ng-if="catSon.categorias_nieto.length == 0" style="cursor: pointer;">{{catSon.categoria_hijo}}</a>
+
+			                            	<a class="nav-link collapsed" href="#{{catSon.id_categoria_hijo}}" data-toggle="collapse" data-target="#{{catSon.id_categoria_hijo}}" ng-if="catSon.categorias_nieto.length > 0">{{catSon.categoria_hijo}}</a>
+			                            </li>
+			                            <div class="collapse" id="{{catSon.id_categoria_hijo}}" aria-expanded="false">
+					                        <ul class="flex-column pl-2 nav">
+					                            <li class="nav-item" ng-repeat="catGrandSon in catSon.categorias_nieto track by $index">
+					                            	<a class="nav-link py-0" ng-click="getProductsByCategory(catGrandSon._id)" style="cursor: pointer;">{{catGrandSon.categoria}}</a>
+					                            </li>
+					                        </ul>
+					                    </div>
+			                        </ul>
+			                    </div>
+			                </li>
+			            </ul>
+			        </div>
+				</div>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+					<div class="tab1">
+						<div class="col-md-3 product-men" ng-repeat="product in products | orderBy:'-'">
+							<div class="men-pro-item simpleCart_shelfItem cardProduct">
+								<a ui-sref="singleproduct({idproduct: product._id})">
+								<div class="men-thumb-item">
+									<img src="{{product.imagenes[0]}}" alt="" class="pro-image-front">
+									<img src="{{product.imagenes[1]}}" alt="" class="pro-image-back">
+									<div class="men-cart-pro">
+										<div class="inner-men-cart-pro">
+										</div>
+									</div>
+									<span class="product-new-top">Nuevo</span>
+								</div>
+								<div class="item-info-product">
+									<h4 style="color: black">{{product.nombre}}</h4>
+									<div class="info-product-price">
+										<span class="item_price">{{product.precio | currency}}</span>
+									</div>
+									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
+										<form action="#" method="post">
+											<fieldset>
+												<input type="hidden" name="cmd" value="_cart" />
+												<input type="hidden" name="add" value="1" />
+												<input type="hidden" name="business" value=" " />
+												<input type="hidden" name="item_name" value="Party Men's Blazer" />
+												<input type="hidden" name="amount" value="30.99" />
+												<input type="hidden" name="discount_amount" value="1.00" />
+												<input type="hidden" name="currency_code" value="USD" />
+												<input type="hidden" name="return" value=" " />
+												<input type="hidden" name="cancel_return" value=" " />
+												<input type="submit" name="submit" value="Comprar" class="button" />
+											</fieldset>
+										</form>
+									</div>
+								</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!--/div-->
+	<!-- //Nuevo_arrivals --> 
+	<!-- /we-offer -->
+		<div class="sale-w3ls">
+			<div class="container">
+				<h6>Compra exclusiva en <span> GONI App y Webstore </span></h6>
+				<div class="row">
+					<div class="col-md-12">
+						<!--a href="#" target="_blank"><img class="waFooter"  src="img/gp.png" href="#" target="_blank" /></a>
+						<a href="#" target="_blank"><img class="asFooter" src="img/as.png" href="#" target="_blank" /></a-->
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- //we-offer -->
+<!--/grids-->
+<!-- <div class="coupons">
+		<div class="coupons-grids text-center">
+			<div class="w3layouts_mail_grid">
+				<div class="col-md-3 w3layouts_mail_grid_left">
+					<div class="w3layouts_mail_grid_left1 hvr-radial-out">
+						<i class="fa fa-truck" aria-hidden="true"></i>
+					</div>
+					<div class="w3layouts_mail_grid_left2">
+						<h3>FREE SHIPPING</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur</p>
+					</div>
+				</div>
+				<div class="col-md-3 w3layouts_mail_grid_left">
+					<div class="w3layouts_mail_grid_left1 hvr-radial-out">
+						<i class="fa fa-headphones" aria-hidden="true"></i>
+					</div>
+					<div class="w3layouts_mail_grid_left2">
+						<h3>24/7 SUPPORT</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur</p>
+					</div>
+				</div>
+				<div class="col-md-3 w3layouts_mail_grid_left">
+					<div class="w3layouts_mail_grid_left1 hvr-radial-out">
+						<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+					</div>
+					<div class="w3layouts_mail_grid_left2">
+						<h3>MONEY BACK GUARANTEE</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur</p>
+					</div>
+				</div>
+					<div class="col-md-3 w3layouts_mail_grid_left">
+					<div class="w3layouts_mail_grid_left1 hvr-radial-out">
+						<i class="fa fa-gift" aria-hidden="true"></i>
+					</div>
+					<div class="w3layouts_mail_grid_left2">
+						<h3>FREE GIFT COUPONS</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur</p>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+
+		</div>
+</div> -->
+<!--grids-->
