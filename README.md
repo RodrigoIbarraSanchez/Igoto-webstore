@@ -1,2 +1,2 @@
-# flumix-webstore
-WebStore App
+# iGoto | Webstore
+
